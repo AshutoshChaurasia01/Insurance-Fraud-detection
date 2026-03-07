@@ -18,6 +18,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 import warnings
 import pickle
 from scipy import stats
+
 df=pd.read_csv("insurance_claims.csv")
 df.replace("?", np.nan, inplace=True)
 df = df.drop('_c39', axis=1)
@@ -176,4 +177,18 @@ prediction = svc.predict(sample_data5)
 print("Prediction:")
 print(prediction)
 
+def comparison(x_test,y_test):
+  print("logistic Regression: ",100*accuracy_score(y_test, lrg_pred))
+  print("-"*100)
+  print("KNN", 100*accuracy_score(y_test, predict_log))
+  print("-"*100)
+  print("SVM", 100*svc_train_acc)
+  print("-"*100)
+  print("Naive-Bayes", 100*accuracy_score(model_2.predict(x_test),y_test))
+  print("-"*100)
+  print("Decision Tree", 100*dt_test_acc)
+  print("-"*100)
+  print("Random Forest", 100*rf_test_acc)
+  print("-"*100)
 
+comparison(X_test,y_test)
