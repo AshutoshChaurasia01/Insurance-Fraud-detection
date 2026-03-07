@@ -7,8 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import f1_score
-from sklearn.metrics import classification_report
+from sklearn.metrics import accuracy_score, f1_score, classification_report
 from sklearn.preprocessing import StandardScaler
 
 import warnings
@@ -74,3 +73,24 @@ X_train = Std_scaler.fit_transform(X_train)
 X_train = pd.DataFrame(X_train, columns=X.columns)
 X_test = Std_scaler.transform(X_test)
 X_test = pd.DataFrame(X_test, columns=X.columns)
+
+#descision tree
+
+
+dt=DecisionTreeClassifier()
+dt.fit(X_train,y_train)
+y_pred=dt.predict(X_test)
+dt_train_acc=accuracy_score(y_train,dt.predict(X_train))
+dt_test_acc=accuracy_score(y_test,y_pred)
+print(f"Train accuracy: {dt_train_acc}")
+print(f'Test accuracy: {dt_test_acc}')
+
+# Random Forest Model
+
+rf = RandomForestClassifier()
+rf.fit(X_train, y_train)
+y_pred = rf.predict(X_test)
+rf_train_acc = accuracy_score(y_train, rf.predict(X_train))
+rf_test_acc = accuracy_score(y_test, y_pred)
+print("Random Forest Train Accuracy:", rf_train_acc)
+print("Random Forest Test Accuracy:", rf_test_acc)
