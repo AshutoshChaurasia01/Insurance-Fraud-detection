@@ -9,6 +9,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import f1_score
 from sklearn.metrics import classification_report
+from sklearn.preprocessing import StandardScaler
 
 import warnings
 import pickle
@@ -66,3 +67,10 @@ y = df.iloc[:,30:]
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=0
 )
+
+
+Std_scaler = StandardScaler()
+X_train = Std_scaler.fit_transform(X_train)
+X_train = pd.DataFrame(X_train, columns=X.columns)
+X_test = Std_scaler.transform(X_test)
+X_test = pd.DataFrame(X_test, columns=X.columns)
