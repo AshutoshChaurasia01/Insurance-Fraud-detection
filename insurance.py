@@ -193,3 +193,14 @@ def comparison(x_test,y_test):
   print("-"*100)
 
 comparison(X_test,y_test)
+
+#Logistic Regression
+
+print(confusion_matrix(y_test, lrg_pred))
+print(classification_report(y_test, lrg_pred))
+
+print(confusion_matrix(y_test,y_pred))
+print(classification_report(y_test,y_pred))
+
+print("Confusion Matrix \n",confusion_matrix(y_test,y_pred),"\n")
+print("classification_report \n",classification_report(y_test,y_pred))
