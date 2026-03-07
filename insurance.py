@@ -50,3 +50,5 @@ for k in df_num_features.columns:
   sns.boxplot(x=df_num_features[k].dropna())
 
   plt.show()
+#by multivariate analysis highly corelated feature  dropped
+df = df.drop(['months_as_customer','injury_claim','property_claim','vehicle_claim'], axis=1)
