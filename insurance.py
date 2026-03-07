@@ -7,7 +7,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score, f1_score, classification_report
+from sklearn.linear_model import LogisticRegressionCV
+from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 from sklearn.preprocessing import StandardScaler
 
 import warnings
@@ -94,3 +95,18 @@ rf_train_acc = accuracy_score(y_train, rf.predict(X_train))
 rf_test_acc = accuracy_score(y_test, y_pred)
 print("Random Forest Train Accuracy:", rf_train_acc)
 print("Random Forest Test Accuracy:", rf_test_acc)
+
+# KNN Model
+knn = KNeighborsClassifier(n_neighbors=30)
+knn.fit(X_train, y_train)
+y_pred = knn.predict(X_test)
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+#linear regression model
+lg = LogisticRegressionCV(solver='lbfgs', max_iter=5000, cv=10)
+lg.fit(X_train, y_train)
+lrg_pred = lg.predict(X_test)
+print(confusion_matrix(y_test, lrg_pred))
+print("Accuracy:", accuracy_score(y_test, lrg_pred))
+print(classification_report(y_test, lrg_pred))
