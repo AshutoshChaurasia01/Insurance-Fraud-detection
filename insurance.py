@@ -138,3 +138,42 @@ print("Test accuracy of SVC :", svc_test_acc)
 print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 
+
+# Testing the Modeles usind test sata
+
+sample_data1 = X_test.iloc[0:1]
+
+prediction = dt.predict(sample_data1)
+print("Prediction:")
+print(prediction)
+
+sample_data2=X_test.iloc[1:2]
+prediction = rf.predict(sample_data2)
+print("Prediction:")
+print(prediction)
+
+sample_data3=X_test.iloc[2:3]
+prediction = rf.predict(sample_data3)
+print("Prediction:")
+print(prediction)
+
+sample_data4=X_test.iloc[3:4]
+prediction = knn.predict(sample_data4)
+print("Prediction:")
+print(prediction)
+
+sample_data5=X_test.iloc[5:6]
+prediction = lg.predict(sample_data5)
+print("Prediction:")
+print(prediction)
+
+prediction = model_2.predict(sample_data4)
+print("Prediction:")
+print(prediction)
+
+
+prediction = svc.predict(sample_data5)
+print("Prediction:")
+print(prediction)
+
+
