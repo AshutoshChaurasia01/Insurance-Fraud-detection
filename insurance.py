@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-
+from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import f1_score
@@ -52,3 +52,17 @@ for k in df_num_features.columns:
   plt.show()
 #by multivariate analysis highly corelated feature  dropped
 df = df.drop(['months_as_customer','injury_claim','property_claim','vehicle_claim'], axis=1)
+
+
+le = LabelEncoder()
+daata1 = df.select_dtypes(include='object').columns
+for i in daata1:
+    df[i] = le.fit_transform(df[i])
+
+
+X = df.iloc[:,0:30]
+y = df.iloc[:,30:]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=0
+)
