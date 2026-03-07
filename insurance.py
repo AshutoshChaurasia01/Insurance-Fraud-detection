@@ -129,6 +129,16 @@ predict_log = model_2.predict(X_test)
 print("Training Accuracy:", 100 * accuracy_score(model_2.predict(X_train), y_train))
 print("Testing Accuracy:", 100 * accuracy_score(y_test, predict_log))
 
+svc = SVC()
+svc.fit(X_train, y_train)
+y_pred = svc.predict(X_test)
+svc_train_acc = accuracy_score(y_train, svc.predict(X_train))
+svc_test_acc = accuracy_score(y_test, y_pred)
+print("Training accuracy of SVC :", svc_train_acc)
+print("Test accuracy of SVC :", svc_test_acc)
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
 # Testing the Model using Decision Tree
 
 sample_data1 = X_test.iloc[0:1]
