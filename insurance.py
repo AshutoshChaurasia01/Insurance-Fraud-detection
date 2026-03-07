@@ -10,12 +10,17 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegressionCV
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 from sklearn.preprocessing import StandardScaler
+from sklearn.naive_bayes import GaussianNB
 
 import warnings
 import pickle
 from scipy import stats
 df=pd.read_csv("insurance_claims.csv")
 df.replace("?", np.nan, inplace=True)
+df = df.drop('_c39', axis=1)
+num_cols = df.select_dtypes(include=['int64','float64']).columns
+df[num_cols] = df[num_cols].fillna(df[num_cols].median())
+df = df.dropna()
 sns.boxplot(x=df['policy_annual_premium'])
 plt.show()
 IQR=[]
@@ -62,7 +67,7 @@ for i in daata1:
 
 
 X = df.iloc[:,0:30]
-y = df.iloc[:,30:]
+y = df.iloc[:,30]
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=0
@@ -103,10 +108,19 @@ y_pred = knn.predict(X_test)
 print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 
-#linear regression model
-lg = LogisticRegressionCV(solver='lbfgs', max_iter=5000, cv=10)
+# Logistic Regression Model
+lg = LogisticRegression(max_iter=5000)
 lg.fit(X_train, y_train)
 lrg_pred = lg.predict(X_test)
 print(confusion_matrix(y_test, lrg_pred))
-print("Accuracy:", accuracy_score(y_test, lrg_pred))
 print(classification_report(y_test, lrg_pred))
+
+
+# Naive Bayes Model
+
+gnb = GaussianNB()
+model_2 = gnb.fit(X_train, y_train)
+predict_log = model_2.predict(X_test)
+print("Training Accuracy:", 100 * accuracy_score(model_2.predict(X_train), y_train))
+print("Testing Accuracy:", 100 * accuracy_score(y_test, predict_log))
+
