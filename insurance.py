@@ -11,3 +11,5 @@ from skleang.metrics import classification_report, confusion_matri
 import warnings
 import pickle
 from scipy import stats
+df=pd.read_csv("insurance_claims.csv")
+df.head()
