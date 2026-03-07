@@ -10,15 +10,10 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegressionCV
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 from sklearn.preprocessing import StandardScaler
-from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-
 
 import warnings
 import pickle
 from scipy import stats
-
 df=pd.read_csv("insurance_claims.csv")
 df.replace("?", np.nan, inplace=True)
 df = df.drop('_c39', axis=1)
@@ -61,7 +56,7 @@ for k in df_num_features.columns:
 
   plt.show()
 #by multivariate analysis highly corelated feature  dropped
-df = df.drop(['months_as_customer','injury_claim','property_claim','vehicle_claim'], axis=1)
+#df = df.drop(['months_as_customer','injury_claim','property_claim','vehicle_claim'], axis=1)
 
 
 le = LabelEncoder()
@@ -70,8 +65,8 @@ for i in daata1:
     df[i] = le.fit_transform(df[i])
 
 
-X = df.iloc[:,0:30]
-y = df.iloc[:,30]
+X = df.drop('fraud_reported', axis=1)
+y = df['fraud_reported']
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=0
@@ -112,13 +107,19 @@ y_pred = knn.predict(X_test)
 print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 
+
+
 # Logistic Regression Model
 lg = LogisticRegression(max_iter=5000)
+
 lg.fit(X_train, y_train)
+
 lrg_pred = lg.predict(X_test)
+
 print(confusion_matrix(y_test, lrg_pred))
 print(classification_report(y_test, lrg_pred))
 
+from sklearn.naive_bayes import GaussianNB
 
 # Naive Bayes Model
 
@@ -128,19 +129,7 @@ predict_log = model_2.predict(X_test)
 print("Training Accuracy:", 100 * accuracy_score(model_2.predict(X_train), y_train))
 print("Testing Accuracy:", 100 * accuracy_score(y_test, predict_log))
 
-# SVM Model
-svc = SVC()
-svc.fit(X_train, y_train)
-y_pred = svc.predict(X_test)
-svc_train_acc = accuracy_score(y_train, svc.predict(X_train))
-svc_test_acc = accuracy_score(y_test, y_pred)
-print("Training accuracy of SVC :", svc_train_acc)
-print("Test accuracy of SVC :", svc_test_acc)
-print(confusion_matrix(y_test, y_pred))
-print(classification_report(y_test, y_pred))
-
-
-# Testing the Modeles usind test sata
+# Testing the Model using Decision Tree
 
 sample_data1 = X_test.iloc[0:1]
 
