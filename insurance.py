@@ -206,21 +206,15 @@ print("Confusion Matrix \n",confusion_matrix(y_test,y_pred),"\n")
 print("classification_report \n",classification_report(y_test,y_pred))
 
 
-# --- Add this to the bottom of insurance.py ---
-# --- REPLACEMENT CODE FOR THE BOTTOM OF insurance.py ---
 import pickle
 
-# 1. Select ONLY the features we are using in the HTML form
 features = ['age', 'policy_annual_premium', 'total_claim_amount']
 X_deploy = df[features]
-y_deploy = df['fraud_reported'] # This is already encoded to 0s and 1s from your earlier loop
+y_deploy = df['fraud_reported'] 
 
-# 2. Train a deployment-specific Random Forest model
-# (Random Forests don't require scaled data, making the API much simpler)
 rf_deploy = RandomForestClassifier(random_state=42)
 rf_deploy.fit(X_deploy, y_deploy)
 
-# 3. Save this specific model to disk
 filename = 'fraud_model.pkl'
 with open(filename, 'wb') as file:
     pickle.dump(rf_deploy, file)
