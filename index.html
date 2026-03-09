@@ -49,7 +49,7 @@
 
     <script>
         document.getElementById('fraudForm').addEventListener('submit', async function (e) {
-            e.preventDefault(); // Prevent page reload
+            e.preventDefault();
 
             const submitBtn = document.getElementById('submitBtn');
             const resultContainer = document.getElementById('resultContainer');
@@ -58,13 +58,13 @@
             submitBtn.textContent = 'Analyzing...';
             submitBtn.disabled = true;
 
-            // Gather data from the form
+            
             const age = document.getElementById('age').value;
             const premium = document.getElementById('premium').value;
             const claimAmount = document.getElementById('claimAmount').value;
 
             try {
-                // Send the POST request to the FastAPI backend
+                
                 const response = await fetch('http://localhost:8000/predict', {
                     method: 'POST',
                     headers: {
@@ -83,7 +83,7 @@
 
                 const data = await response.json();
 
-                // Show the result
+                
                 resultContainer.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'bg-green-50', 'text-green-700');
 
                 if (data.prediction === 'Fraudulent') {
@@ -100,7 +100,7 @@
                 resultContainer.className = 'mt-6 p-4 border border-red-200 rounded-xl shadow-sm text-center font-bold bg-red-50 text-red-700';
                 resultText.textContent = 'Error connecting to the server. Is the API running?';
             } finally {
-                // Reset button
+                
                 submitBtn.textContent = 'Analyze Claim';
                 submitBtn.disabled = false;
             }
