@@ -1,6 +1,6 @@
 # Insurance Fraud Detection System
-Epic 1: Define Problem / Problem Understanding
-Activity 1.1: Specify the Business Problem
+# Define Problem / Problem Understanding
+## Specify the Business Problem
 Insurance fraud is a major issue that causes significant financial losses to insurance companies every year. Fraudulent claims increase operational costs and lead to higher premiums for genuine customers. Manually detecting fraudulent claims is time-consuming and inefficient due to the large volume of claims processed daily.
 The goal of this project is to develop a machine learning based fraud detection system that can analyze insurance claim data and predict whether a claim is fraudulent or legitimate. By automating fraud detection, insurance companies can quickly identify suspicious claims and take appropriate action.
 ________________________________________
