@@ -22,6 +22,10 @@ class ClaimData(BaseModel):
     policy_annual_premium: float
     total_claim_amount: float
     
+@app.get("/")
+async def serve_frontend():
+    return FileResponse("index.html")
+    
 
 @app.post("/predict")
 async def predict_fraud(data: ClaimData):
